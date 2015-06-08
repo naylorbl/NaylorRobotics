@@ -1,0 +1,91 @@
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>LED Test</title>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap-theme.min.css">
+</head>
+<style>
+body {
+  margin: 70px;
+}
+
+.jumbotron .btn {
+  margin: 10px;
+}
+</style>
+<body>
+  <nav class="navbar navbar-inverse navbar-fixed-top">
+    <div class="container">
+      <div class="navbar-header">
+        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false"
+          aria-controls="navbar">
+          <span class="sr-only">Toggle navigation</span> <span class="icon-bar"></span> <span class="icon-bar"></span> <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" href="#">Initial socket IO testing</a>
+      </div>
+    </div>
+  </nav>
+  <div class="container">
+    <div class="jumbotron">
+      <a id='hello-btn' class="btn btn-lg btn-primary" href="#" role="button">Hello</a>
+      <a id='led-off-btn' class="btn btn-lg btn-danger pull-right" href="#" role="button">LED Off</a>
+      <a id='led-on-btn' class="btn btn-lg btn-success pull-right" href="#" role="button">LED On</a>
+    </div>
+    <div class="row">
+      <div class="col-xs-2 col-xs-offset-5 text-center">
+      <div class="btn-group btn-group-lg btn-group-vertical" role="group" aria-label="Direction buttons">
+        <button id='forward-btn' type="button" style="border-top-right-radius: 4px;" class="btn btn-success">Forward</button>
+        <button id='stop-btn' type="button" class="btn btn-danger">Stop</button>
+        <button id='reverse-btn' type="button" class="btn btn-warning">Reverse</button>
+      </div>
+      </div>
+    </div>
+
+    <h2>Last server message:</h2>
+    <p id="responses"></p>
+  </div>
+  <!-- /.container -->
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+  <script src="/socket.io/socket.io.js"></script>
+  <script>
+    var socket = io('//' + window.location.host);
+    socket.on('greeting', function (data) {
+      console.log("Greeting: " + data.message);
+      $("#responses").text(data.message);
+      socket.emit('btn-control', { msg: 'Just got your greeting.  -- client' });
+    });
+    socket.on('real-btn', function (data) {
+      $("#responses").text(data.message);
+    });
+    $("#hello-btn").click(function() {
+      console.log("Sending Hello");
+      socket.emit('btn-control', { msg: 'Hello' });
+    });
+    $("#led-on-btn").click(function() {
+      console.log("Sending On");
+      socket.emit('btn-control', { msg: 'On' });
+    });
+    $("#led-off-btn").click(function() {
+      console.log("Sending Off");
+      socket.emit('btn-control', { msg: 'Off' });
+    });
+    $("#forward-btn").click(function() {
+      console.log("Sending On");
+      socket.emit('btn-control', { msg: 'Forward' });
+    });
+    $("#stop-btn").click(function() {
+      console.log("Sending Off");
+      socket.emit('btn-control', { msg: 'Stop' });
+    });
+    $("#reverse-btn").click(function() {
+      console.log("Sending Off");
+      socket.emit('btn-control', { msg: 'Reverse' });
+    });
+  </script>
+</body>
+</html>
