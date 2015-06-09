@@ -105,7 +105,7 @@ io.on("connection", function(socket) {
        i2c.writeByte(char("0x70")); // Manually calculate crc 0+0+200+200 = 400 (144) --> crc = 112
     }else if (data.msg === "Left") {
         socket.emit("real-btn", {
-            message : "You want to go in Reverse.  I hear you.  -- server"
+            message : "You want to go Left.  I hear you.  -- server"
           });
            i2c.writeByte(
               char("0x7e")); // Start byte
@@ -122,7 +122,7 @@ io.on("connection", function(socket) {
            i2c.writeByte(char("0x9b")); // Manually calculate crc 0+1+50+50 = 101 --> crc = 155
     }else if (data.msg === "Right") {
         socket.emit("real-btn", {
-            message : "You want to go in Reverse.  I hear you.  -- server"
+            message : "You want to go Right.  I hear you.  -- server"
           });
            i2c.writeByte(
               char("0x7e")); // Start byte

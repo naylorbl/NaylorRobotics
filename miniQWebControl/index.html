@@ -40,6 +40,8 @@ body {
         <button id='forward-btn' type="button" style="border-top-right-radius: 4px;" class="btn btn-success">Forward</button>
         <button id='stop-btn' type="button" class="btn btn-danger">Stop</button>
         <button id='reverse-btn' type="button" class="btn btn-warning">Reverse</button>
+        <button id='left-btn' type="button" class="btn btn-success">Left</button>
+        <button id='right-btn' type="button" class="btn btn-success">Right</button>
       </div>
       </div>
     </div>
@@ -85,6 +87,14 @@ body {
     $("#reverse-btn").click(function() {
       console.log("Sending Off");
       socket.emit('btn-control', { msg: 'Reverse' });
+    });
+    $("#left-btn").click(function() {
+        console.log("Sending Off");
+        socket.emit('btn-control', { msg: 'Left' });
+    });
+    $("#right-btn").click(function() {
+        console.log("Sending Off");
+        socket.emit('btn-control', { msg: 'Right' });
     });
   </script>
 </body>
