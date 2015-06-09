@@ -1,6 +1,6 @@
-var http = require("http")
+var http = require('http')
 var app = http.createServer(handler)
-var io = require("socket.io")(app);
+var io = require('socket.io')(app);
 
 var fs = require("fs");
 var mraa = require("mraa"); // require mraa
